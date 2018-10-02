@@ -6,7 +6,7 @@ require('dotenv').config()
 describe('Load product list', () => {
     let browser
     let page
-    beforeAll(async() => {
+    beforeAll(async () => {
         browser = await Puppeteer.launch({
             defaultViewport: {
                 width: 1270,
@@ -16,9 +16,12 @@ describe('Load product list', () => {
             headless: false
         })
         page = await browser.newPage()
+        var cookie = await new Helper(page).login_via_api()
+        cookie = await new Helper(page).convert_cookie(cookie)
+        await new Helper(page).set_cookie(cookie)
     })
 
-    afterAll(async() => {
+    afterAll(async () => {
         browser.close()
     })
 

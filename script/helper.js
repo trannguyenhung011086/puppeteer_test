@@ -20,15 +20,19 @@ export default class Helper {
         }
         const cookie = await fetch(process.env.HOST + '/api/v2/account/signin', settings)
             .then(response => {
-                return response.headers.get('set-cookie').split('; ').reduce((result, value) => {
-                    result[value.split('=')[0]] = value.split('=')[1];
-                    return result;
-                }, {})
+                return response.headers.get('set-cookie')
             })
             .catch(e => {
                 return e
             })
         return cookie
+    }
+
+    async convert_cookie(cookie) {
+        return await cookie.split('; ').reduce((result, value) => {
+            result[value.split('=')[0]] = value.split('=')[1]
+            return result
+        }, {})
     }
 
     async set_cookie(cookie) {
