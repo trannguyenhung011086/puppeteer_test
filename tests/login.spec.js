@@ -68,7 +68,7 @@ describe.each([devices.desktop, devices.mobile])('Login with valid credentials',
             browser.close()
         })
 
-        test('Login with existing email', async () => {
+        test.only('Login with existing email', async () => {
             await page.goto(process.env.HOST + '/vn/auth/sign-in')
             await page.on('response', async response => {
                 if (response.request().url().endsWith('account/signin') &&
@@ -80,6 +80,7 @@ describe.each([devices.desktop, devices.mobile])('Login with valid credentials',
             await new Login(page).login_via_email('test1234@test.com', '123456789')
             await page.waitForNavigation()
             expect(page.url()).toEqual(process.env.HOST + '/vn')
+            expect(await new Login(page).get_success_text()).toMatch(/Chào mừng .+ quay trở lại!/)
         })
     })
 })
