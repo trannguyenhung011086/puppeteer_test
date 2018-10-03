@@ -74,10 +74,10 @@ describe.each([devices.desktop, devices.mobile])('Login with valid credentials',
                 if (response.request().url().endsWith('account/signin') &&
                     response.request().method() == 'POST') {
                     expect(await response.status()).toEqual(200)
-                    expect(await response.json()).toHaveProperty('email', 'hungtn@leflair.vn')
+                    expect(await response.json()).toHaveProperty('email', 'test1234@test.com')
                 }
             })
-            await new Login(page).login_via_email('hungtn@leflair.vn', '0944226282')
+            await new Login(page).login_via_email('test1234@test.com', '123456789')
             await page.waitForNavigation()
             expect(page.url()).toEqual(process.env.HOST + '/vn')
         })
