@@ -1,4 +1,4 @@
-import Helper from '../script/helper'
+import Helper from '../common/helper'
 
 export default class Login extends Helper {
     constructor(page) {

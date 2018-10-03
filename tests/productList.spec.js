@@ -1,21 +1,15 @@
-import Puppeteer from 'puppeteer'
+import Setup from '../common/test.setup'
+import Helper from '../common/helper'
 import ProductList from '../page_objects/productList.object'
-import Helper from '../script/helper'
 require('dotenv').config()
 
 describe('Load product list', () => {
     let browser
     let page
     beforeAll(async () => {
-        browser = await Puppeteer.launch({
-            defaultViewport: {
-                width: 1270,
-                height: 720
-            },
-            args: ['--no-sandbox'],
-            headless: false
-        })
-        page = await browser.newPage()
+        let instance = await new Setup().open_desktop_page()
+        browser = instance.browser
+        page = instance.page
         var cookie = await new Helper(page).login_via_api()
         cookie = await new Helper(page).convert_cookie(cookie)
         await new Helper(page).set_cookie(cookie)

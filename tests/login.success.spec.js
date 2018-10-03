@@ -1,4 +1,4 @@
-import Puppeteer from 'puppeteer'
+import Setup from '../common/test.setup'
 import Login from '../page_objects/login.object'
 require('dotenv').config()
 
@@ -7,15 +7,9 @@ describe('Login with valid credentials', () => {
     let page
 
     beforeAll(async () => {
-        browser = await Puppeteer.launch({
-            defaultViewport: {
-                width: 1270,
-                height: 720
-            },
-            args: ['--no-sandbox'],
-            headless: false
-        })
-        page = await browser.newPage()
+        let instance = await new Setup().open_desktop_page()
+        browser = instance.browser
+        page = instance.page
     })
 
     afterAll(async () => {
