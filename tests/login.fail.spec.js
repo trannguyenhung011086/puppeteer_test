@@ -7,7 +7,7 @@ describe('Login with invalid credentials', () => {
     let page
     const invalid_email_error = 'Email hoặc mật khẩu không đúng. Vui lòng thử lại'
 
-    beforeAll(async() => {
+    beforeAll(async () => {
         browser = await Puppeteer.launch({
             defaultViewport: {
                 width: 1270,
@@ -19,7 +19,7 @@ describe('Login with invalid credentials', () => {
         page = await browser.newPage()
     })
 
-    afterAll(async() => {
+    afterAll(async () => {
         browser.close()
     })
 
@@ -35,7 +35,7 @@ describe('Login with invalid credentials', () => {
         await new Login(page).login_via_email('hungtn@leflair.vn', 'test')
         const text = await new Login(page).get_login_error()
         expect(text).toEqual(invalid_email_error)
-    }, 30000)
+    })
 
     test('Login with non-existing email', async () => {
         await page.goto(process.env.HOST + '/vn/auth/sign-in')
@@ -49,5 +49,5 @@ describe('Login with invalid credentials', () => {
         await new Login(page).login_via_email('test@test.vn', 'test')
         const text = await new Login(page).get_login_error()
         expect(text).toEqual(invalid_email_error)
-    }, 30000)
+    })
 })

@@ -38,5 +38,5 @@ describe('Load product list', () => {
 
         var numWithLazyLoadedItems = await new ProductList(page).get_num_lazy_loaded_items()
         expect(numWithLazyLoadedItems).toEqual(numOfItems + 30)
-    }, 30000)
+    })
 })

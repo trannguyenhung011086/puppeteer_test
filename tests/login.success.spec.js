@@ -6,7 +6,7 @@ describe('Login with valid credentials', () => {
     let browser
     let page
 
-    beforeAll(async() => {
+    beforeAll(async () => {
         browser = await Puppeteer.launch({
             defaultViewport: {
                 width: 1270,
@@ -18,7 +18,7 @@ describe('Login with valid credentials', () => {
         page = await browser.newPage()
     })
 
-    afterAll(async() => {
+    afterAll(async () => {
         browser.close()
     })
 
@@ -34,5 +34,5 @@ describe('Login with valid credentials', () => {
         await new Login(page).login_via_email('hungtn@leflair.vn', '0944226282')
         await page.waitForNavigation()
         expect(page.url()).toEqual(process.env.HOST + '/vn')
-    }, 30000)
+    })
 })
