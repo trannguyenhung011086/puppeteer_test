@@ -48,13 +48,12 @@ export default class Helper {
     }
 
     async get_error_text(error_selector) {
-        await this.page.waitForSelector(error_selector, {
-            visible: true
-        })
+        await this.page.waitForSelector(error_selector)
         return await this.page.$eval(error_selector, el => el.textContent)
     }
 
-    async scroll_to_footer() {
-        await this.page.evaluate(() => window.scrollTo(0, document.querySelector('#footer').offsetTop))
+    async scroll_to_element(element_selector) {
+        await this.page.waitForSelector(element_selector)
+        await this.page.$eval(element_selector, el => el.scrollIntoView())
     }
 }
