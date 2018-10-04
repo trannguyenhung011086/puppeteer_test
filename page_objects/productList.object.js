@@ -23,4 +23,20 @@ export default class ProductList extends Helper {
         await this.page.waitForSelector(`${this.productList} > div:nth-child(90)`)
         return await this.get_filter_num()
     }
+
+    async get_product_info(index) {
+        await this.page.waitForSelector(`${this.productList}`)
+        let url = await this.page.$eval(`${this.productList} > div:nth-child(${index}) > a`, el => el.href)
+        let brand = await this.page.$eval(`${this.productList} > div:nth-child(${index}) > * .brand`, el => el.textContent)
+        let title = await this.page.$eval(`${this.productList} > div:nth-child(${index}) > * .title`, el => el.textContent)
+        let retailPrice = await this.page.$eval(`${this.productList} > div:nth-child(${index}) > * .price > .retail`, el => parseInt(el.textContent.replace(/\.|₫/g, '')))
+        let salePrice = await this.page.$eval(`${this.productList} > div:nth-child(${index}) > * .price > .sale`, el => parseInt(el.textContent.replace(/\.|₫/g, '')))
+        return {
+            url: url,
+            brand: brand,
+            title: title,
+            retailPrice: retailPrice,
+            salePrice: salePrice
+        }
+    }
 }
